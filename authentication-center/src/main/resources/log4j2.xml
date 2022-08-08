@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 设置log4j2的自身log级别为warn -->
+<!-- OFF > FATAL > ERROR > WARN > INFO > DEBUG > TRACE > ALL -->
+<configuration status="WARN" monitorInterval="30">
+    <appenders>
+        <console name="console" target="SYSTEM_OUT">
+            <Filters>
+                <ThresholdFilter level="INFO" onMatch="ACCEPT" onMismatch="DENY"/>
+            </Filters>
+            <PatternLayout pattern="[%p] '%t' %d{yyyy-MM-dd HH:mm:ss} - %l - %m%n"/>
+        </console>
+
+        <RollingFile name="rollingFileInfo" fileName="logs/info.log"
+                     filePattern="logs/info/info-%d{yyyy-MM-dd}-%i.log">
+            <!--控制台只输出level及以上级别的信息（onMatch），其他的直接拒绝（onMismatch）-->
+            <Filters>
+                <ThresholdFilter level="WARN"  onMatch="DENY" onMismatch="NEUTRAL"/>
+                <ThresholdFilter level="INFO" onMatch="ACCEPT" onMismatch="DENY"/>
+            </Filters>
+            <PatternLayout pattern="[%p] '%t' %d{yyyy-MM-dd HH:mm:ss} - %l - %m%n"/>
+            <Policies>
+                <TimeBasedTriggeringPolicy/>
+<!--                <SizeBasedTriggeringPolicy size="100 MB"/>-->
+            </Policies>
+        </RollingFile>
+
+        <RollingFile name="rollingFileError" fileName="logs/error.log"
+                     filePattern="logs/error/info-%d{yyyy-MM-dd}-%i.log">
+            <Filters>
+                <ThresholdFilter level="ERROR" onMatch="ACCEPT" onMismatch="DENY"/>
+            </Filters>
+            <PatternLayout pattern="[%p] '%t' %d{yyyy-MM-dd HH:mm:ss} - %l - %m%n"/>
+            <Policies>
+                <TimeBasedTriggeringPolicy/>
+                <!--                <SizeBasedTriggeringPolicy size="100 MB"/>-->
+            </Policies>
+        </RollingFile>
+
+    </appenders>
+
+    <loggers>
+        <root level="all">
+            <appender-ref ref="console"/>
+            <appender-ref ref="rollingFileInfo"/>
+            <appender-ref ref="rollingFileError"/>
+        </root>
+    </loggers>
+
+</configuration>

@@ -1,0 +1,18 @@
+#server:
+#  ssl:
+#    protocol: TLS
+#    key-store: classpath:tomcat.keystore
+#    key-alias: tomcat
+#    key-store-password: kevinavy@123
+#    key-store-type: JKS
+#    enabled: true
+
+spring:
+  datasource:
+    username: root
+    password: kevinavy@123
+    url: jdbc:mysql://47.118.117.34:3306/competition_sys?useUnicode=true&characterEncoding=utf-8&useSSL=true&serverTimezone=Asia/Shanghai
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  jackson:
+    time-zone: GMT+8   
+    date-format: yyyy-MM-dd HH:mm:ss
